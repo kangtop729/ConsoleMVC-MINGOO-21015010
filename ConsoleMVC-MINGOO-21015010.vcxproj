@@ -105,9 +105,6 @@
     <ClCompile Include="src\main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="test\SanityTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'!='Test|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="packages\gmock.1.11.0\lib\native\src\gmock\src\gmock_main.cc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'!='Test|x64'">true</ExcludedFromBuild>
     </ClCompile>

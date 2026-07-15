@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Model">
+      <UniqueIdentifier>{7080a5ae-d28c-4dbf-8663-10bb25c1d5b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{91ca39e4-b979-42d3-962a-71459b2b3785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{200ad1ab-35e8-4e3a-8708-1665aac8dbca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{a27b7be7-8f31-4c82-a073-e5285c4210d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Model\AppState.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\View\ConsoleView.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controller\MainController.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="test\AppStateTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\ConsoleViewTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\MainControllerTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Model\AppState.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\View\ConsoleView.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\View\IView.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Controller\MainController.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="CLAUDE.md" />
+    <None Include="PLAN.md" />
+    <None Include="README.md" />
+  </ItemGroup>
+</Project>

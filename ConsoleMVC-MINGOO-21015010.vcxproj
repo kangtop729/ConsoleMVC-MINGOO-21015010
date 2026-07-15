@@ -89,6 +89,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Model\AppState.h" />
+    <ClInclude Include="src\View\ConsoleView.h" />
+    <ClInclude Include="src\View\IView.h" />
+    <ClInclude Include="src\Controller\MainController.h" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
     <None Include="CLAUDE.md" />
     <None Include="PLAN.md" />

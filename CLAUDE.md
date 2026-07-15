@@ -12,18 +12,34 @@ PoC(Proof of Concept)다. Main 프로젝트인
 
 ## 기술 스택
 
-- 언어: C++
+- 언어: C++20
 - 빌드: Visual Studio / MSBuild (`.vcxproj`)
-- 플랫폼: Win32, x64 / Debug, Release
-- 테스트: GoogleTest / GoogleMock (NuGet 패키지)
+- 플랫폼: x64 / Debug, Release, Test
+- 테스트: GoogleTest / GoogleMock (`gmock` 1.11.0, NuGet 패키지)
+
+## 프로젝트 구성
+
+별도 테스트 프로젝트를 두지 않고, `ConsoleMVC-MINGOO-21015010.vcxproj` 하나에 Debug/Release/Test
+3개 Configuration을 둔다.
+
+- `Debug`, `Release`: `src/main.cpp`(앱 진입점)만 빌드에 포함, 테스트 파일과 gmock/gtest 소스는 제외.
+- `Test`: `src/main.cpp`는 빌드에서 제외하고, `test/*.cpp` + gmock의 `gmock_main.cc`를 포함해
+  `ConsoleMVCTest.exe`를 만든다. Model/View/Controller의 `.cpp`는 세 Configuration 모두에서 공통으로 빌드된다.
 
 ## 빌드 및 테스트 명령
 
 ```
+# 앱 빌드
 msbuild ConsoleMVC-MINGOO-21015010.vcxproj /p:Configuration=Debug /p:Platform=x64
+
+# 테스트 빌드 및 실행
+msbuild ConsoleMVC-MINGOO-21015010.vcxproj /p:Configuration=Test /p:Platform=x64
+x64\Test\ConsoleMVCTest.exe
 ```
 
-테스트 프로젝트가 구성되면 별도 테스트 실행 파일을 빌드 후 실행한다. (테스트 프로젝트 추가 시 본 절 갱신)
+새 소스 파일을 추가할 때는 `.vcxproj`의 `<ClCompile Include="...">` 항목에 등록해야 하며, 테스트 전용
+파일(`test/*.cpp`, `gmock_main.cc`)은 Debug/Release에서, 앱 전용 파일(`src/main.cpp`)은 Test에서
+`ExcludedFromBuild` 처리되어 있는지 확인한다.
 
 ## 작업 원칙
 

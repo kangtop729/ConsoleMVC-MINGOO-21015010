@@ -3,7 +3,6 @@
     <Platform Name="x64" />
     <BuildType Name="Debug" />
     <BuildType Name="Release" />
-    <BuildType Name="Test" />
   </Configurations>
   <Project Path="ConsoleMVC-MINGOO-21015010.vcxproj" Id="f6e7270b-3348-47e1-8d0a-88b4e21a3666" />
 </Solution>

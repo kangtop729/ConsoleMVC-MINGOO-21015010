@@ -14,31 +14,34 @@ PoC(Proof of Concept)다. Main 프로젝트인
 
 - 언어: C++20
 - 빌드: Visual Studio / MSBuild (`.vcxproj`)
-- 플랫폼: x64 / Debug, Release, Test
+- 플랫폼: x64 / Debug, Release
 - 테스트: GoogleTest / GoogleMock (`gmock` 1.11.0, NuGet 패키지)
 
 ## 프로젝트 구성
 
-별도 테스트 프로젝트를 두지 않고, `ConsoleMVC-MINGOO-21015010.vcxproj` 하나에 Debug/Release/Test
-3개 Configuration을 둔다.
+별도 테스트 프로젝트/Configuration을 두지 않고, `ConsoleMVC-MINGOO-21015010.vcxproj`의 기본
+Debug/Release 2개 Configuration만 사용한다.
 
-- `Debug`, `Release`: `src/main.cpp`(앱 진입점)만 빌드에 포함, 테스트 파일과 gmock/gtest 소스는 제외.
-- `Test`: `src/main.cpp`는 빌드에서 제외하고, `test/*.cpp` + gmock의 `gmock_main.cc`를 포함해
-  `ConsoleMVCTest.exe`를 만든다. Model/View/Controller의 `.cpp`는 세 Configuration 모두에서 공통으로 빌드된다.
+- `src/main.cpp`는 두 Configuration 모두에서 공통으로 빌드되는 유일한 진입점이다. `_DEBUG` 전처리기
+  정의(Debug Configuration에서 기본 설정됨) 여부로 동작이 갈린다.
+  - `Debug`: `main()`이 `::testing::InitGoogleTest` + `RUN_ALL_TESTS()`를 호출해 테스트를 실행한다.
+    `test/*.cpp`와 gmock/gtest 소스(`gmock.targets` import)가 Debug에서만 함께 빌드된다.
+  - `Release`: 콘솔 앱을 실행한다. `test/*.cpp`는 빌드에서 제외된다.
+- Model/View/Controller의 `.cpp`는 두 Configuration 모두에서 공통으로 빌드된다.
 
 ## 빌드 및 테스트 명령
 
 ```
-# 앱 빌드
+# 테스트 빌드 및 실행 (Debug 빌드 = 테스트 실행)
 msbuild ConsoleMVC-MINGOO-21015010.vcxproj /p:Configuration=Debug /p:Platform=x64
+x64\Debug\ConsoleMVC-MINGOO-21015010.exe
 
-# 테스트 빌드 및 실행
-msbuild ConsoleMVC-MINGOO-21015010.vcxproj /p:Configuration=Test /p:Platform=x64
-x64\Test\ConsoleMVCTest.exe
+# 실제 콘솔 앱 빌드/실행
+msbuild ConsoleMVC-MINGOO-21015010.vcxproj /p:Configuration=Release /p:Platform=x64
+x64\Release\ConsoleMVC-MINGOO-21015010.exe
 ```
 
-새 소스 파일을 추가할 때는 `.vcxproj`의 `<ClCompile Include="...">` 항목에 등록해야 하며, 테스트 전용
-파일(`test/*.cpp`, `gmock_main.cc`)은 Debug/Release에서, 앱 전용 파일(`src/main.cpp`)은 Test에서
+새 테스트 파일을 추가할 때는 `.vcxproj`의 `test\*.cpp` `<ClCompile>` 항목에 등록해야 하며, Release에서
 `ExcludedFromBuild` 처리되어 있는지 확인한다.
 
 ## 작업 원칙
